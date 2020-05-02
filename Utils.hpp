@@ -12,18 +12,17 @@
 #include <iomanip>
 
 float getCPULoad();
+float getRamLoad();
+int getLogCPUNCoresEach();
 
 #if defined(__APPLE__)
 float getFrequencyGHz();
 int getNProcessesEach();
 std::string getModelStr();
 int getNCoresEach();
-int getLogCPUNCoresEach();
 int getPhisCPUNCoresEach();
-
 size_t getRamSize();
 size_t getFreeMem();
-float getRamLoad();
 #endif
 
 struct Info
@@ -45,6 +44,7 @@ struct Info
         int getNCores() const;
         const std::string &getModel() const;
         float getFrequency() const;
+
 
 };
 

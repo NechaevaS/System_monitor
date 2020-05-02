@@ -43,7 +43,7 @@ Info::Info()
         processes = in.procs;
         cores = get_nprocs();
         model = "unknow";
-        freqency = 0;
+        frequency = 0;
 
     #elif defined(__APPLE__)
 
@@ -89,9 +89,24 @@ float getCPULoad()
 {
     struct sysinfo inf;
     sysinfo(&inf);
+    
     float f = 1.f / (1 << SI_LOAD_SHIFT);
-    float loadp = inf.loads[0] * f * 100 / get_nprocs();
+    float loadp = inf.loads[0] * f;
     return (loadp);
+}
+
+float getRamLoad()
+{
+    struct sysinfo inf;
+    sysinfo(&inf);
+	size_t	total = inf.totalram;
+	size_t	free = inf.freeram;
+    return ((float) (total - free) * 100 / total);
+}
+
+int getLogCPUNCoresEach()
+{
+    return get_nprocs();
 }
 
 #elif defined(__APPLE__)

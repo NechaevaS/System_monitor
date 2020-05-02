@@ -13,8 +13,8 @@
 #include <iostream>
 #include <string>
 
-#define WIDTH 60
-#define HEIGHT 55
+#define WIDTH 30
+#define HEIGHT 30
 
 void usage(std::ostream &os)
 {

@@ -19,15 +19,17 @@
 #include <algorithm>
 
 GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMonitorDisplay(width, height)
+, 	_windowWidth(width * 20),
+	_windowHeight(height * 40),
+_window(sf::VideoMode(_windowWidth, _windowHeight), "My Window")
 {
-	_windowWidth = width * 30;
-	_windowHeight = height * 40;
-	_vertOffset = 20.0f;
-	_horizOffset = 20.0f;
-	_titleGap = 20;
-	_windowGap = 40;
-	_titleSize = 36;
-	_textSize = 32;
+
+	_vertOffset = 10.0f;
+	_horizOffset = 10.0f;
+	_titleGap = 2;
+	_windowGap = 2;
+	_titleSize = 20;
+	_textSize = 20;
 	_titleColor = sf::Color(100, 120, 140);
 	_textColor = sf::Color(200, 220, 240);
 }
@@ -52,7 +54,7 @@ int		GraphicsDisplay::handleKey(char c)
 
 void	GraphicsDisplay::run()
 {
-	_window.create(sf::VideoMode(_windowWidth, _windowHeight), "My Window");
+//	_window.create(sf::VideoMode(_windowWidth, _windowHeight), "My Window");
 	if (!_font.loadFromFile("TerminusTTF-4.46.0.ttf"))
 		return ;
 
@@ -94,7 +96,7 @@ void	GraphicsDisplay::drawName(IMonitorModule *module)
 
 	text.setFont(_font);
 	text.setCharacterSize(_titleSize);
-	text.setFillColor(_titleColor);
+	text.setColor(_titleColor);
 	text.setPosition(_horizOffset, _curHeight);
 	text.setString(module->getName());
 	_window.draw(text);
@@ -112,7 +114,7 @@ void GraphicsDisplay::display(MultiStrMonitorModule *module)
 	// Create text object for module
 	text.setFont(_font);
 	text.setCharacterSize(_textSize);
-	text.setFillColor(_textColor);
+	text.setColor(_textColor);
 
 	// Draw each string
 	const std::vector<std::string> & strings = module->getStrings();
@@ -142,7 +144,7 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 {
 	size_t	points = module->getSize();
 	float	graphHeight = 100;
-	float	graphWidth = 500;
+	float	graphWidth = 580;
 	// Initialize x position, and distance between x positions
 	float	xPos = _horizOffset;
 	float	xDelta = graphWidth / points;
@@ -150,7 +152,7 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 	ChartMonitorModule<float>::iterator	it_end = module->end();
 
 	// Make a triangle strip with double points (for bottom and top)
-	sf::VertexArray	graph(sf::TriangleStrip, points * 2);
+	sf::VertexArray	graph(sf::TrianglesStrip, points * 2);
 
 	// Draw title (updates current height)
 	drawName(module);

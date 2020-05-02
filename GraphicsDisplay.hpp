@@ -11,44 +11,45 @@
 /* ************************************************************************** */
 
 #ifndef GRAPHICSDISPLAY_HPP
-# define GRAPHICSDISPLAY_HPP
+#define GRAPHICSDISPLAY_HPP
 
-# include "AMonitorDisplay.hpp"
-# include "Keyboard.hpp"
-# include <vector>
-# include <map>
+#include "AMonitorDisplay.hpp"
+#include "Keyboard.hpp"
+#include <vector>
+#include <map>
 
-# include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
-class GraphicsDisplay: public AMonitorDisplay
+class GraphicsDisplay : public AMonitorDisplay
 {
-	private:
-		static const size_t chartHeight = 10; 
-		sf::RenderWindow	_window;
-		unsigned int		_windowWidth;
-		unsigned int		_windowHeight;
-		sf::Font			_font;
-		float				_vertOffset;
-		float				_horizOffset;
-		unsigned int		_windowGap;
-		unsigned int		_titleGap;
-		unsigned int		_titleSize;
-		unsigned int		_textSize;
-		sf::Color			_titleColor;
-		sf::Color			_textColor;
-		//std::vector<WINDOW*> _windows;
-		GraphicsDisplay(const GraphicsDisplay &);
-		GraphicsDisplay &operator=(const GraphicsDisplay &);
-		void				drawName(IMonitorModule *module);
-		int					handleKey(char c);
+private:
+	static const size_t chartHeight = 10;
 
-	public:
-		GraphicsDisplay(unsigned int width, unsigned int height);
-		~GraphicsDisplay();
+	unsigned int _windowWidth;
+	unsigned int _windowHeight;
+	sf::RenderWindow _window;
+	sf::Font _font;
+	float _vertOffset;
+	float _horizOffset;
+	unsigned int _windowGap;
+	unsigned int _titleGap;
+	unsigned int _titleSize;
+	unsigned int _textSize;
+	sf::Color _titleColor;
+	sf::Color _textColor;
+	//std::vector<WINDOW*> _windows;
+	GraphicsDisplay(const GraphicsDisplay &);
+	GraphicsDisplay &operator=(const GraphicsDisplay &);
+	void drawName(IMonitorModule *module);
+	int handleKey(char c);
 
-		void run();
-		void display(MultiStrMonitorModule *);
-		void display(ChartMonitorModule<float>*);
+public:
+	GraphicsDisplay(unsigned int width, unsigned int height);
+	~GraphicsDisplay();
+
+	void run();
+	void display(MultiStrMonitorModule *);
+	void display(ChartMonitorModule<float> *);
 };
 
 #endif
